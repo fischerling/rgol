@@ -129,18 +129,16 @@ pub struct Game {
     survive: Vec<u8>,
 }
 
+impl Default for Game {
+    /// Create a new game with the default rules 3/23
+    fn default() -> Game {
+        Game::new(20,vec![3],vec![2,3])
+    }
+}
+
 impl Game {
 
-    /// Create a new game with the default rules 3/23
-    pub fn new(size: usize) -> Game {
-        Game {
-            board: Grid::new(size),
-            born: vec![3],
-            survive: vec![2,3],
-        }
-    }
-
-    pub fn new_with_rules(size: usize, born: Vec<u8>, survive: Vec<u8>) -> Game {
+    pub fn new(size: usize, born: Vec<u8>, survive: Vec<u8>) -> Game {
         Game {
             board: Grid::new(size),
             born: born,

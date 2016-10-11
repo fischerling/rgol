@@ -52,8 +52,7 @@ impl<W: Write, R: Read> TUI<W, R> {
             stdout: stdout,
             stdin: stdin,
             term_size: term_size,
-            game: game::Game::new(if term_size.0 > term_size.1 { (term_size.1/2 ) as usize}
-                                  else { (term_size.0/2) as usize}),
+            game: game::Game::default(),
             step_by_step: false,
             show_axis: false,
         }
