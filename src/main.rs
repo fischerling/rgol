@@ -161,10 +161,11 @@ impl<W: Write, R: Read> TUI<W, R> {
     
     fn new_size(&mut self) {
         let mut buf = [0];
-        let new_size;
+        let new_size: usize;
         let mut v: Vec<u8> = Vec::new();
+        let mut use_half = false;
         loop {
-            write!(self.stdout, "{}{}Enter new size: ", clear::All, cursor::Goto(1,1)).unwrap();
+            write!(self.stdout, "{}{}Enter new size [h]: ", clear::All, cursor::Goto(1,1)).unwrap();
             self.stdout.flush().unwrap();
             
             loop {
@@ -172,14 +173,22 @@ impl<W: Write, R: Read> TUI<W, R> {
                 match buf[0] {
                     b'0' ... b'9'   => { v.push(buf[0]);
                                         write!(self.stdout, "{}", buf[0] as char).unwrap(); },
+                    b'h'            => {use_half = true; break},
                     _               => break,
                 }
                 self.stdout.flush().unwrap();
             }
-
-            match String::from_utf8(v.clone()).unwrap().parse::<usize>() {
-                Ok(num) => { new_size = num; },
-                Err(_) => continue,
+            
+            if use_half || v.len() == 0  {
+                let ts = terminal_size().unwrap();
+                new_size = (if ts.0 > ts.1 {ts.1/2}
+                           else {ts.0/2}) as usize;
+            }
+            else {
+                match String::from_utf8(v.clone()).unwrap().parse::<usize>() {
+                    Ok(num) => { new_size = num; },
+                    Err(_) => continue,
+                }
             }
             self.game.resize(new_size);
             break;
