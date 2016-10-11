@@ -1,0 +1,23 @@
+[root]
+name = "game-of-live"
+version = "0.1.0"
+dependencies = [
+ "termion 1.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "libc"
+version = "0.2.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "termion"
+version = "1.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "libc 0.2.9 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[metadata]
+"checksum libc 0.2.9 (registry+https://github.com/rust-lang/crates.io-index)" = "95ca44454e7cfe7f8a2095a41a10c79d96a177c0b1672cbf1a30d901a9c16ee5"
+"checksum termion 1.1.1 (registry+https://github.com/rust-lang/crates.io-index)" = "ce9884af069456867e19fd5648b8908d5c9378f586b2659aaa6f3a4088fdb867"
