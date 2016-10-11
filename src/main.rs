@@ -76,9 +76,9 @@ impl<W: Write, R: Read> TUI<W, R> {
         if self.show_axis {
             axis_space = 4;
             for i in 1..(size/10)+1 {
-                write!(self.stdout, "{}0", cursor::Goto((i*10+1) as u16,1)).unwrap();
+                write!(self.stdout, "{}0", cursor::Goto((i*10+2) as u16,1)).unwrap();
             }
-            write!(self.stdout, "{}{}{}-", cursor::Goto(size as u16,1),
+            write!(self.stdout, "{}{}{}-", cursor::Goto((size+1) as u16,1),
                                             size%10,
                                             cursor::Goto(1,2)).unwrap();
             for i in 0..(size/10)+1 {
